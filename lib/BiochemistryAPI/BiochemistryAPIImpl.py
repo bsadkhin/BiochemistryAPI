@@ -23,7 +23,7 @@ class BiochemistryAPI:
     ######################################### noqa
     VERSION = "0.1.1"
     GIT_URL = "git@github.com:kbaseapps/BiochemistryAPI.git"
-    GIT_COMMIT_HASH = "b82efb604f55537e62cdf2bc8960369a8c640d27"
+    GIT_COMMIT_HASH = "0610bc3e1237b77f23547305b566e9f4a788b171"
 
     #BEGIN_CLASS_HEADER
     @staticmethod
