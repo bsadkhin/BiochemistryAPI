@@ -208,3 +208,14 @@ class BiochemistryAPITest(unittest.TestCase):
             self.ctx, {'structures': ['C(=O)O', 'CCC']})[0]
         assert len(svgs) == 2
         assert '<svg' in svgs[0]
+
+    def test_bad_input(self):
+        with self.assertRaises(ValueError):
+            self.getImpl().get_compounds(
+                self.ctx, {'structures': ['C(=O)O', 'CCC']})[0]
+        with self.assertRaises(ValueError):
+            self.getImpl().get_reactions(
+                self.ctx, {"compounds": ['cpd00002', "cpd00007"]})[0]
+        with self.assertRaises(ValueError):
+            self.getImpl().depict_compounds(
+                self.ctx, {"reactions": ['rxn00002', "rxn00007"]})[0]

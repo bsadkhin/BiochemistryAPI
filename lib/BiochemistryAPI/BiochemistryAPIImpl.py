@@ -4,6 +4,7 @@ import os
 import csv
 from BiochemistryAPI.utils import depict_compound
 from collections import defaultdict
+import logging
 #END_HEADER
 
 
@@ -27,11 +28,13 @@ class BiochemistryAPI:
     GIT_COMMIT_HASH = "0610bc3e1237b77f23547305b566e9f4a788b171"
 
     #BEGIN_CLASS_HEADER
+    logging.basicConfig(level=logging.INFO)
     @staticmethod
     def _check_param(in_params, req_param, opt_param=list()):
         """
         Check if each of the params in the list are in the input params
         """
+        logging.info("Parameters: {}".format(in_params))
         for param in req_param:
             if param not in in_params:
                 raise ValueError('{} parameter is required'.format(param))
@@ -97,7 +100,6 @@ class BiochemistryAPI:
         #END_CONSTRUCTOR
         pass
 
-
     def get_reactions(self, ctx, params):
         """
         Returns data for the requested reactions
@@ -127,15 +129,20 @@ class BiochemistryAPI:
         # ctx is the context object
         # return variables are: out_reactions
         #BEGIN get_reactions
-        self._check_param(params, ['reactions'])
-        out_reactions = []
-        for x in params['reactions']:
-            id = x.split('/')[-1]
-            rxn = self.reactions.get(id, None)
-            if rxn:
-                rxn['aliases'] = self.rxn_aliases.get(id, '')
-                rxn['enzymes'] = self.ec_classes.get(id, '')
-            out_reactions.append(rxn)
+        logging.info("Starting get_reactions")
+        try:
+            self._check_param(params, ['reactions'])
+            out_reactions = []
+            for x in params['reactions']:
+                id = x.split('/')[-1]
+                rxn = self.reactions.get(id, None)
+                if rxn:
+                    rxn['aliases'] = self.rxn_aliases.get(id, '')
+                    rxn['enzymes'] = self.ec_classes.get(id, '')
+                out_reactions.append(rxn)
+        except Exception as e:
+            logging.error(e)
+            raise e
         #END get_reactions
 
         # At some point might do deeper type checking...
@@ -171,14 +178,19 @@ class BiochemistryAPI:
         # ctx is the context object
         # return variables are: out_compounds
         #BEGIN get_compounds
-        self._check_param(params, ['compounds'])
-        out_compounds = []
-        for x in params['compounds']:
-            id = x.split('/')[-1]
-            comp = self.compounds.get(id, None)
-            if comp:
-                comp['aliases'] = self.comp_aliases.get(id, '')
-            out_compounds.append(comp)
+        logging.info("Starting get_compounds")
+        try:
+            self._check_param(params, ['compounds'])
+            out_compounds = []
+            for x in params['compounds']:
+                id = x.split('/')[-1]
+                comp = self.compounds.get(id, None)
+                if comp:
+                    comp['aliases'] = self.comp_aliases.get(id, '')
+                out_compounds.append(comp)
+        except Exception as e:
+            logging.error(e)
+            raise e
         #END get_compounds
 
         # At some point might do deeper type checking...
@@ -198,9 +210,14 @@ class BiochemistryAPI:
         # ctx is the context object
         # return variables are: depictions
         #BEGIN depict_compounds
-        self._check_param(params, ['structures'])
-        depictions = [depict_compound(struct)
-                      for struct in params['structures']]
+        logging.info("Starting depict_compounds")
+        try:
+            self._check_param(params, ['structures'])
+            depictions = [depict_compound(struct)
+                          for struct in params['structures']]
+        except Exception as e:
+            logging.error(e)
+            raise e
         #END depict_compounds
 
         # At some point might do deeper type checking...
