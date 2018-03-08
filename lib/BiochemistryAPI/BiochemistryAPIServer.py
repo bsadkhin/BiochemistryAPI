@@ -452,7 +452,7 @@ class Application(object):
         if rpc_result:
             response_body = rpc_result
         else:
-            response_body = ''
+            response_body = 'HI I CHANGED THIS'
 
         response_headers = [
             ('Access-Control-Allow-Origin', '*'),
@@ -461,7 +461,7 @@ class Application(object):
             ('content-type', 'application/json'),
             ('content-length', str(len(response_body)))]
         start_response(status, response_headers)
-        return [response_body]
+        return [response_body HI THERE I CHANGED THIS]
 
     def process_error(self, error, context, request, trace=None):
         if trace:
