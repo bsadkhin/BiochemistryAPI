@@ -5,11 +5,11 @@ MAINTAINER KBase Developer
 RUN kb-sdk version
 
 # -----------------------------------------
-RUN conda config --add channels  https://conda.anaconda.org/rdkit && \
-   conda install -y nose \
-                    cairo \
-                    nomkl \
-                    rdkit
+# RUN conda config --add channels  https://conda.anaconda.org/rdkit && \
+#    conda install -y nose \
+#                     cairo \
+#                     nomkl \
+#                     rdkit
 
 COPY ./ /kb/module
 RUN mkdir -p /kb/module/work
