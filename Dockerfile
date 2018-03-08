@@ -1,4 +1,4 @@
-FROM jjeffryes/kbasepythonsdk:latest
+FROM jjeffryes/kb_python3:latest
 MAINTAINER KBase Developer
 
 # -----------------------------------------
