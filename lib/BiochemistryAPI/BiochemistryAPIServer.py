@@ -452,7 +452,7 @@ class Application(object):
         if rpc_result:
             response_body = rpc_result
         else:
-            response_body = ''
+            response_body = 'HI CHANGED THIS'
 
         response_headers = [
             ('Access-Control-Allow-Origin', '*'),
